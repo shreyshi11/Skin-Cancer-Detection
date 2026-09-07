@@ -1,254 +1,764 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>DermAI Dashboard</title>
-<link rel="stylesheet" href="style.css">
 
-<!-- Icons -->
-<link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DermAI Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 
 <body>
 
-<!-- Sidebar -->
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
 <div class="sidebar">
-    <h2><i class="ri-heart-pulse-line"></i> DermAI</h2>
+
+    <h2>
+        <i class="ri-heart-pulse-line"></i>
+        DermAI
+    </h2>
 
     <ul>
-        <li class="active"><i class="ri-home-4-line"></i> Dashboard</li>
-        <li><i class="ri-upload-cloud-line"></i> Upload</li>
-        <li><i class="ri-time-line"></i> History</li>
-        <li><i class="ri-file-list-line"></i> Reports</li>
-        <li><i class="ri-settings-3-line"></i> Settings</li>
+
+        <li class="active">
+            <i class="ri-home-4-line"></i>
+            Dashboard
+        </li>
+
+        <li>
+            <i class="ri-upload-cloud-line"></i>
+            Upload
+        </li>
+
+        <li>
+            <i class="ri-time-line"></i>
+            History
+        </li>
+
+        <li>
+            <i class="ri-file-list-line"></i>
+            Reports
+        </li>
+
+        <li>
+            <i class="ri-settings-3-line"></i>
+            Settings
+        </li>
+
     </ul>
+
 </div>
 
-<!-- Main -->
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
 <div class="main">
 
-    <!-- Topbar -->
+
+    <!-- =================================================
+         TOPBAR
+    ================================================== -->
+
     <div class="topbar">
+
         <div>
-            <h1>Skin Cancer Detection System</h1>
-            <p>AI-Powered Dermatology Assistant</p>
+
+            <h1>
+                Skin Cancer Detection System
+            </h1>
+
+            <p>
+                AI-Powered Dermatology Assistant
+            </p>
+
         </div>
+
 
         <div class="profile">
+
             <i class="ri-notification-3-line"></i>
+
             <div class="user">
-                <h4>Dr. User</h4>
-                <span>Dermatologist</span>
+
+                <h4>
+                    Dr. User
+                </h4>
+
+                <span>
+                    Dermatologist
+                </span>
+
             </div>
+
         </div>
+
     </div>
 
-    <!-- Stats -->
+
+
+    <!-- =================================================
+         STAT CARDS
+    ================================================== -->
+
     <div class="cards">
 
+
         <div class="card blue">
-            <h3>24</h3>
-            <p>Total Scans</p>
+
+            <h3>
+                24
+            </h3>
+
+            <p>
+                Total Scans
+            </p>
+
         </div>
+
 
         <div class="card green">
-            <h3>156</h3>
-            <p>Patients</p>
+
+            <h3>
+                156
+            </h3>
+
+            <p>
+                Patients
+            </p>
+
         </div>
+
 
         <div class="card purple">
-            <h3>96.3%</h3>
-            <p>Detection Rate</p>
+
+            <h3>
+                96.3%
+            </h3>
+
+            <p>
+                Detection Rate
+            </p>
+
         </div>
+
 
         <div class="card red">
-            <h3>94.2%</h3>
-            <p>Accuracy</p>
+
+            <h3>
+                94.2%
+            </h3>
+
+            <p>
+                Accuracy
+            </p>
+
         </div>
 
     </div>
 
-    <!-- Content -->
+
+
+    <!-- =================================================
+         UPLOAD + PATIENT INFORMATION
+    ================================================== -->
+
     <div class="grid">
 
-        <!-- Upload -->
-        <div class="upload card">
-            <h3>Upload Skin Lesion Image</h3>
 
-            <div class="drop" id="dropArea">
+        <!-- ==============================
+             IMAGE UPLOAD
+        =============================== -->
+
+        <div class="upload card">
+
+            <h3>
+                Upload Skin Lesion Image
+            </h3>
+
+
+            <div
+                class="drop"
+                id="dropArea"
+            >
+
                 <i class="ri-upload-cloud-2-line"></i>
-                <p>Drag & Drop or Browse</p>
-                <input type="file" id="fileInput" hidden>
-                <button onclick="fileInput.click()">Browse Files</button>
+
+                <p>
+                    Drag & Drop or Browse
+                </p>
+
+
+                <input
+                    type="file"
+                    id="fileInput"
+                    accept="image/*"
+                    hidden
+                >
+
+
+                <button
+                    type="button"
+                    id="browseBtn"
+                >
+                    Browse Files
+                </button>
+
             </div>
 
-            <img id="preview">
+
+            <!-- IMAGE PREVIEW -->
+
+            <img
+                id="preview"
+                alt="Selected skin lesion image"
+                style="display:none;"
+            >
+
+
+            <!-- ANALYZE BUTTON -->
+
+            <button
+                type="button"
+                id="analyzeBtn"
+                style="display:none;"
+            >
+                <i class="ri-search-eye-line"></i>
+                Analyze Image
+            </button>
+
+
+            <!-- LOADING MESSAGE -->
+
+            <p
+                id="loadingMessage"
+                style="display:none;"
+            >
+                Analyzing image with AI...
+            </p>
+
         </div>
 
-        <!-- Patient Info -->
-        <div class="card form">
-            <h3>Patient Information</h3>
 
-            <input placeholder="Patient Name">
+
+        <!-- ==============================
+             PATIENT INFORMATION
+        =============================== -->
+
+        <div class="card form">
+
+            <h3>
+                Patient Information
+            </h3>
+
+
+            <input
+                type="text"
+                id="patientName"
+                placeholder="Patient Name"
+            >
+
+
             <div class="row">
-                <input placeholder="Age">
-                <select>
-                    <option>Gender</option>
-                    <option>Male</option>
-                    <option>Female</option>
+
+                <input
+                    type="number"
+                    id="patientAge"
+                    placeholder="Age"
+                    min="1"
+                    max="120"
+                >
+
+
+                <select id="patientGender">
+
+                    <option value="">
+                        Gender
+                    </option>
+
+                    <option value="Male">
+                        Male
+                    </option>
+
+                    <option value="Female">
+                        Female
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
                 </select>
+
             </div>
-            <input type="date">
+
+
+            <input
+                type="date"
+                id="patientDate"
+            >
+
         </div>
 
     </div>
 
-    <!-- SCROLL SECTION -->
-<div class="bottom-section">
 
-    <!-- Left Side -->
-    <div class="left">
 
-        <!-- Analysis + Insights -->
-        <div class="grid-2">
+    <!-- =================================================
+         ANALYSIS + AI INSIGHTS
+    ================================================== -->
 
-            <div class="card center">
-                <h3>Analysis Results</h3>
-                <div class="empty">
-                    <i class="ri-bar-chart-line"></i>
-                    <p>No analysis results yet</p>
-                    <span>Upload image & click Analyze</span>
+    <div class="bottom-section">
+
+
+        <!-- ==============================
+             LEFT SIDE
+        =============================== -->
+
+        <div class="left">
+
+
+            <div class="grid-2">
+
+
+                <!-- =========================
+                     ANALYSIS RESULT
+                ========================== -->
+
+                <div class="card center">
+
+                    <h3>
+                        Analysis Results
+                    </h3>
+
+
+                    <!-- EMPTY STATE -->
+
+                    <div
+                        class="empty"
+                        id="analysisResult"
+                    >
+
+                        <i class="ri-bar-chart-line"></i>
+
+                        <p>
+                            No analysis results yet
+                        </p>
+
+                        <span>
+                            Upload image & click Analyze
+                        </span>
+
+                    </div>
+
+
+                    <!-- ACTUAL RESULT -->
+
+                    <div
+                        id="resultContent"
+                        style="display:none;"
+                    >
+
+                        <i
+                            class="ri-shield-check-line"
+                            style="font-size:40px;"
+                        ></i>
+
+
+                        <h2 id="prediction">
+                            --
+                        </h2>
+
+
+                        <p>
+                            Confidence:
+                            <strong id="confidence">
+                                --
+                            </strong>
+                        </p>
+
+
+                        <!-- DISCLAIMER -->
+
+                        <small>
+                            This result is generated by an AI model
+                            and should not be considered a medical diagnosis.
+                        </small>
+
+                    </div>
+
                 </div>
+
+
+
+                <!-- =========================
+                     AI INSIGHTS
+                ========================== -->
+
+                <div class="card">
+
+                    <h3>
+                        AI Insights
+                    </h3>
+
+
+                    <div id="aiInsights">
+
+                        <p>
+                            AI insights will appear here after analysis
+                        </p>
+
+                    </div>
+
+                </div>
+
             </div>
+
+
+
+            <!-- =================================================
+                 ANALYTICS CHART
+            ================================================== -->
 
             <div class="card">
-                <h3>AI Insights</h3>
-                <p>AI insights will appear here after analysis</p>
-            </div>
 
-        </div>
+                <div class="chart-header">
 
-        <!-- Chart -->
-        <div class="card">
-            <div class="chart-header">
-                <h3>Analytics Dashboard</h3>
-                <div class="tabs">
-                    <button class="active">Weekly</button>
-                    <button>Accuracy</button>
+                    <h3>
+                        Analytics Dashboard
+                    </h3>
+
+
+                    <div class="tabs">
+
+                        <button class="active">
+                            Weekly
+                        </button>
+
+                        <button>
+                            Accuracy
+                        </button>
+
+                    </div>
+
                 </div>
+
+
+                <canvas id="barChart"></canvas>
+
             </div>
 
-            <canvas id="barChart"></canvas>
+        </div>
+
+
+
+        <!-- =================================================
+             RIGHT SIDE
+        ================================================== -->
+
+        <div class="right">
+
+
+            <!-- ==============================
+                 NOTIFICATIONS
+            =============================== -->
+
+            <div class="card">
+
+                <h3>
+                    Notifications
+                </h3>
+
+
+                <div
+                    class="notify success"
+                    id="uploadNotification"
+                >
+                    ✔ Ready for image upload
+                </div>
+
+
+                <div class="notify success">
+                    ✔ Model loaded
+                </div>
+
+
+                <div class="notify info">
+                    ⬆ AI prediction available
+                </div>
+
+
+                <div class="notify warning">
+                    ⚠ AI results require professional review
+                </div>
+
+            </div>
+
+
+
+            <!-- ==============================
+                 QUICK STATISTICS
+            =============================== -->
+
+            <div class="card gradient">
+
+                <h3>
+                    Quick Statistics
+                </h3>
+
+
+                <p>
+                    Total Scans:
+                    <b id="totalScans">
+                        24
+                    </b>
+                </p>
+
+
+                <p>
+                    Pending:
+                    <b>
+                        7
+                    </b>
+                </p>
+
+
+                <p>
+                    Accuracy:
+                    <b>
+                        94.2%
+                    </b>
+                </p>
+
+            </div>
+
         </div>
 
     </div>
 
-    <!-- Right Side -->
-    <div class="right">
 
-        <!-- Notifications -->
+
+    <!-- =================================================
+         THIRD SECTION
+    ================================================== -->
+
+    <div class="third-section">
+
+
+        <!-- ==============================
+             STATS ROW
+        =============================== -->
+
+        <div class="stats-row">
+
+
+            <div class="mini-card green">
+
+                <p>
+                    Total Benign
+                </p>
+
+                <h2>
+                    252
+                </h2>
+
+                <span>
+                    +12.5%
+                </span>
+
+            </div>
+
+
+            <div class="mini-card red">
+
+                <p>
+                    Total Malignant
+                </p>
+
+                <h2>
+                    41
+                </h2>
+
+                <span>
+                    +5.2%
+                </span>
+
+            </div>
+
+
+            <div class="mini-card blue">
+
+                <p>
+                    Detection Rate
+                </p>
+
+                <h2>
+                    96.3%
+                </h2>
+
+                <span>
+                    +2.1%
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==============================
+             RECENT SCANS
+        =============================== -->
+
         <div class="card">
-            <h3>Notifications</h3>
 
-            <div class="notify success">✔ Scan uploaded (Just now)</div>
-            <div class="notify success">✔ Model updated</div>
-            <div class="notify info">⬆ New upload</div>
-            <div class="notify warning">⚠ High-risk scan</div>
+            <div class="header">
 
-        </div>
+                <h3>
+                    ⏱ Recent Scans
+                </h3>
 
-        <!-- Quick Stats -->
-        <div class="card gradient">
-            <h3>Quick Statistics</h3>
-            <p>Total Scans: <b>24</b></p>
-            <p>Pending: <b>7</b></p>
-            <p>Accuracy: <b>94.2%</b></p>
+                <a href="#">
+                    View All →
+                </a>
+
+            </div>
+
+
+
+            <!-- Scan 1 -->
+
+            <div class="scan">
+
+                <div>
+
+                    <h4>
+                        John Smith ✅
+                    </h4>
+
+                    <p>
+                        2026-03-07 | 14:32
+                    </p>
+
+                    <span class="benign">
+                        Benign
+                    </span>
+
+                </div>
+
+
+                <div class="confidence">
+
+                    <p>
+                        Confidence
+                    </p>
+
+                    <h3>
+                        92.5%
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Scan 2 -->
+
+            <div class="scan">
+
+                <div>
+
+                    <h4>
+                        Emma Wilson ⚠️
+                    </h4>
+
+                    <p>
+                        2026-03-07 | 13:15
+                    </p>
+
+                    <span class="malignant">
+                        Malignant
+                    </span>
+
+                </div>
+
+
+                <div class="confidence">
+
+                    <p>
+                        Confidence
+                    </p>
+
+                    <h3>
+                        87.3%
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Scan 3 -->
+
+            <div class="scan">
+
+                <div>
+
+                    <h4>
+                        Michael Brown ✅
+                    </h4>
+
+                    <p>
+                        2026-03-07 | 11:45
+                    </p>
+
+                    <span class="benign">
+                        Benign
+                    </span>
+
+                </div>
+
+
+                <div class="confidence">
+
+                    <p>
+                        Confidence
+                    </p>
+
+                    <h3>
+                        94.8%
+                    </h3>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
 </div>
 
-<!-- THIRD SCROLL SECTION -->
-<div class="third-section">
 
-    <!-- Stats Row -->
-    <div class="stats-row">
 
-        <div class="mini-card green">
-            <p>Total Benign</p>
-            <h2>252</h2>
-            <span>+12.5%</span>
-        </div>
-
-        <div class="mini-card red">
-            <p>Total Malignant</p>
-            <h2>41</h2>
-            <span>+5.2%</span>
-        </div>
-
-        <div class="mini-card blue">
-            <p>Detection Rate</p>
-            <h2>96.3%</h2>
-            <span>+2.1%</span>
-        </div>
-
-    </div>
-
-    <!-- Recent Scans -->
-    <div class="card">
-
-        <div class="header">
-            <h3>⏱ Recent Scans</h3>
-            <a href="#">View All →</a>
-        </div>
-
-        <!-- Scan Item -->
-        <div class="scan">
-            <div>
-                <h4>John Smith ✅</h4>
-                <p>2026-03-07 | 14:32</p>
-                <span class="benign">Benign</span>
-            </div>
-
-            <div class="confidence">
-                <p>Confidence</p>
-                <h3>92.5%</h3>
-            </div>
-        </div>
-
-        <div class="scan">
-            <div>
-                <h4>Emma Wilson ⚠️</h4>
-                <p>2026-03-07 | 13:15</p>
-                <span class="malignant">Malignant</span>
-            </div>
-
-            <div class="confidence">
-                <p>Confidence</p>
-                <h3>87.3%</h3>
-            </div>
-        </div>
-
-        <div class="scan">
-            <div>
-                <h4>Michael Brown ✅</h4>
-                <p>2026-03-07 | 11:45</p>
-                <span class="benign">Benign</span>
-            </div>
-
-            <div class="confidence">
-                <p>Confidence</p>
-                <h3>94.8%</h3>
-            </div>
-        </div>
-
-    </div>
-
-</div>
-</div>
-
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
 <script src="script.js"></script>
 
